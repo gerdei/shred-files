@@ -1,0 +1,389 @@
+TEST CASES
+
+Author: Gergő Erdei
+Date: 10th March, 2021
+
+Scope:
+The tests are run using Firefox (v 86.0 (32-bits)), it should be extended to all major browser types (Chrome, Edge) if necessary.
+The tests verify the behaviour of the cookie notification area, the search field and the Location selector on the site "https://www.community-z.com/communities". There is also a section where the search results are validated using API testing.
+
+The structure of other sites on https://www.community-z.com/ are very similar, the methods described in this document can help to test other functionalities of the page too.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+Test cases for cookies:
+-----------------------
+The purpose of these test cases are to verify the behaviour of the cookie notification message.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_cookies_01
+
+description: The purpose of this test is to verify that cookie notification message appears when the site is visited for the first time, and that the message disappears if the user clicks on the "Accept" button
+
+test data: N/A
+
+prerequisites: This is the first time the site is visited by the user OR user is using Private browsing (Ctrl+Shift+P, in Firefox) OR delete the cookies manually using the browser options.
+
+Steps:
+1. Visit the site "https://www.community-z.com/communities"
+2. Click the "Accept" button in the cookie notification area
+
+Expected results:
+1. A message saying "This website uses cookies for analytics, personalization and advertising. Click here to learn more. By continuing to browse, you agree to our use of cookies." and a button saying "Accept" can be found at the bottom of the screen.
+2. The cookie notification message disappears
+
+Observed results:
+1.
+2.
+
+Status (PASSED/FAILED): 
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_cookies_02
+
+description: The purpose of this test is to verify the cookie notification message DOES NOT appear when the user previously clicked accept.
+
+test data: N/A
+
+prerequisites: This is the first time the site is visited by the user OR user is using Private browsing (Ctrl+Shift+P, in Firefox) OR delete the cookies manually using the browser options.
+
+Steps:
+0. Execute steps in test case with id "TC_cookies_01"
+1. Visit another website (https://www.google.com)
+2. Visit the site "https://www.community-z.com/communities" again
+
+Expected results:
+0. Same as in "TC_cookies_01"
+1. Website loads
+2. The cookie notification message is not shown again
+
+
+Observed results:
+0.
+1.
+2.
+
+Status (PASSED/FAILED): 
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_cookies_03
+
+description: The purpose of this test is to verify that the language of the cookie notification message is changed if we switch the language
+
+test data: Русский (russian as a language) 
+
+prerequisites: This is the first time the site is visited by the user OR user is using Private browsing (Ctrl+Shift+P, in Firefox) OR delete the cookies manually using the browser options.
+
+Steps:
+1. Visit the site "https://www.community-z.com/communities"
+2. Select "Русский" (russian) as the language in the top right corner, left to the "Login" button
+
+Expected results:
+1. A message saying "This website uses cookies for analytics, personalization and advertising. Click here to learn more. By continuing to browse, you agree to our use of cookies." and a button saying "Accept" can be found at the bottom of the screen.
+2. The language of the message changes to russian. It says "Этот сайт использует куки для аналитики, персонализации и рекламы. Нажмите здесь, чтобы узнать больше. Продолжая просматривать, вы соглашаетесь на использование нами файлов cookie.", the text of the "Accept" button is replaced with "Принять".
+
+Observed results:
+1.
+2.
+
+Status (PASSED/FAILED): 
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_cookies_04
+short description: User can navigate on the site without clicking "Accept" button in cookie notification message
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_cookies_05
+short description: Check if the link inside the cookie notification message is valid and leads the user to the cookie policy page
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_cookies_06
+short description: Check that cookie notification message disappears if page is reloaded and the "Accept" button was pressed on another (cookie policy) page
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_cookies_07
+short description: Check that cookies are actually used by verifying the stored cookies (check for domain: "community-z.com")
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+Test cases for search:
+----------------------
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_01
+
+description: The purpose of this test is to verify that cookie notification message appears when the site is visited for the first time, and that the message disappears if the user clicks on the "Accept" button
+
+test data: "Budapest" (text to paste in search field)
+
+prerequisites: N/A
+
+Steps:
+1. Visit the site "https://www.community-z.com/communities"
+2. Click the the search area and paste the text "Budapest" into the search area
+
+Expected results:
+1. Site loads, search area is available, communities are showed wih no filtering
+2a. Communities are filtered (no need to press RETURN), communities have "budapest" in their names/titles
+2b. The adress bar is changed to "https://community-z.com/communities?f[0][search]=budapest" ("https://community-z.com/communities?f%5B0%5D%5Bsearch%5D=budapest" with percent encoding)
+
+Observed results:
+1.
+2.
+
+Status (PASSED/FAILED): 
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_02
+
+description: The purpose of this test is to verify that pressing return in the search field has no effect
+
+test data: N/A
+
+prerequisites: N/A
+
+Steps:
+1. Visit the site "https://www.community-z.com/communities"
+2. Click the the search area and press the return/enter key
+
+Expected results:
+1. Site loads, search area is available, communities are showed wih no filtering
+2. Pressing return/enter has no effect, communities are still showed wih no filtering
+
+Observed results:
+1.
+2.
+
+Status (PASSED/FAILED): 
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_03
+
+description: The purpose of this test is to verify that typing characters one-by-one into the search field incrementaly filters the search results
+
+test data: h, u, m, a, n, s (characters to be typed in the searchfield one-by-one)
+
+prerequisites: In order to keep track of the number of results before beginning the test visit the site "https://www.community-z.com/communities" and click on the "More filters" button, then click on the checkbox/slider corresponding to the "Online" control. This results a filter content area under the controls, where the number of search results is displayed ("[n] results found for:...") Now (9th March, 2021, 18:45 GMT the number of results is 564)
+
+Steps:
+
+1. Click the the search area and press the "h" key
+2. Click the the search area and press the "u" key
+3. Click the the search area and press the "m" key
+4. Click the the search area and press the "a" key
+5. Click the the search area and press the "n" key
+6. Click the the search area and press the "s" key
+
+Expected results:
+1. the results are automatically filtered (the cards/results are changed), the number of results are changed from 564 to 349
+2. the results are automatically filtered (the cards/results are changed), the number of results are changed from 349 to 5
+3. the results are automatically filtered (the cards/results are changed), the number of results are changed from 5 to 1
+4. the results are automatically filtered, but the card/result is not changed, since title still matches the query, number of search results also remains 1
+5. the results are automatically filtered, but the card/result is not changed, since title still matches the query, number of search results also remains 1
+6. the results are automatically filtered, tere are no search results, since title does not match the query string anymore, number of search results decreases to 0
+
+Observed results:
+1.
+2.
+3.
+4.
+5.
+6.
+
+Status (PASSED/FAILED): 
+
+
+Note: The number of search results stated in this test case are only valid at a specific time, it can change if users add/remove communities in the future. The goal is to observe the (not strictly) monotone descending nature in the sequence of search results while the user is typing characters into the search field. The test data should also be modified in the future if this nature cannot be observed using the current test data. The other option is to use a test environment where the communities are fixed.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_04
+short description: deleting characters expands the search results (inverse of TC_search_03)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_05
+short description: if number of search results is greater than 12, scrolling to the bottom of the page adds more cards/results
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_06
+short description: if using multiple keywords (separated by space) the result is different if the keywords are reversed
+test data: "Brest IT" and "IT Brest"
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_07
+short description: quotation marks do not group keywords
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_08
+short description: query string is case insensitive
+test data: "c++" and "C++"
+expected result: search results should be the same
+observed result: search results are different, query string is case sensitive, when matching one of the categories of community
+(same behaviour when test data is "aws" and "AWS")
+status: FAILED (if requirements state that the query string should be case insensitive)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_09
+short description: text can be dragged and dropped into the search field
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_10
+short description: search is working if user types non-latin characters
+test data: "профессии"
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_11
+short description: pressing clear contents button (labeled with "X" at the end of the search field) clears the search field
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_12
+short description: query string is trimmed, generally multiple spaces between keywords are treated as single spaces
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_search_13
+short description: 
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+Test cases for search validation:
+---------------------------------
+
+
+The testing startegy used for the validation of the searches (and generally any filter) is based on the following:
+
+1. Typing a string in the search field generates a GET request hitting "https://community-z.com/api/v2/communities.json"
+
+2. The server sends a JSON response, in that response there exists an array named "communities" and the following attributes are listed for each community (search result): ['id', 'title', 'url', 'logo', 'description', 'event_count', 'subscription', 'closed']
+
+-----Note---------
+At first I tought that the results are returned if the query string (with trailing/leading/multiple spaces removed) is contained in the "title" attribute of the community, however this is only partially true:
+
+action_1: type "c++" in the search field
+result_1: there is only 1 result named "EPAM C++ Community"
+
+action_2: remove the "c" from the beginning, leaving only "++" in the search field
+result_2: additional results are added, but "++" is generally not part of the title attribute
+
+In order to get the categories of the community, one must click/visit the page of the community. (https://www.community-z.com/communities/+url from JSON response) This shows the categories associated to the community, however the content is dynamic and can not be directly accesed from the HTML source code. An option could be to use a browser automation tool (Selenium) to get the dynamic content, but after some inspection the content is generated by the hitting the "https://community-z.com/api/v2/communities/{id}/pages/home" endpoint where {id} is the "id" attribute retrieved in the JSON response mentioned in point 2.
+-----End-of-Note----
+
+3. If the query string (with trailing/leading/multiple spaces removed) is not a substring of the "title", then one should verify that it is a substring of at least one category obtained from the JSON response ([0][properties][details][categories])after a GET request to "https://community-z.com/api/v2/communities/{id}/pages/home" 
+
+This method can be easily extended to verifying any filter (Category, Location) on the communities page by appropriately modifying the URL parameters of the GET request, and verifying ([0][properties][details][format][location] in the second JSON response.
+API testing can be automatically done with Python using the requests module (has to be installed separately) or one can use other tools (cURL) if Python is not an option.
+Many Test cases can be generated with a list of valid inputs (search strings, categoies, locations)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+Test cases for Location filter:
+-------------------------------
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_01
+short description: selecting only a city increases the location counter by 1, adds only 1 element (the city) to the filter contents
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_02
+short description: selecting a country increases the location counter by [number of cities in country]+1, adds all cities from the given country and the country name to the filter contents
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_03
+short description: removing a country from filter contents removes the country and all the cities from that country, location counter decreased by [number of cities in country]+1
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_04
+short description: removing a city from filter contents removes the country and the city, location counter decreased by 2
+expectrd result: ...shouldn't only the city be removed? 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_05
+short description: removing a country using the checkbox in the dropdown menu removes the country and all the cities from that country in filter contents, location counter decreased by [number of cities in country]+1
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_06
+short description: removing a city using the checkbox in the dropdown menu removes the country and the city in filter contents, location counter decreased by 2
+expectrd result: ...shouldn't only the city be removed? 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_07
+short description: clicking "Clear All" in filter contents clears all filter contents (including Location)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_08
+short description: multiple countries can be added as location, all cities and the countries appear in the filter contents
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_09
+short description: multiple cities can be added as location, only the cities appear in the filter contents
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_10
+short description: cities/countries are filtered when the user types characters in the location search bar
+expected results: dropdown menu is filtered, characters matching the ones typed by the user are highlighted in red
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_11
+short description: characters typed in the location search bar are case insensitive
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_12
+short description: multiple spaces between characters typed in the location search bar are treated like single spaces
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_13
+short description: selection of countries are disabled if there exists a city from that country wich does not match the query (characters typed in the location search bar)
+test data: "a"
+expected results: "Australia" is not selectable (city "Northcote" does not match query)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_14
+short description: selection of countries are enabled if query matches the country but non of the cities from that country
+test data: "a"
+expected results: "China" is selectable (all cities ("Shenzen" and "Sozuhou") do not match the query)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_15
+short description: selection of countries are enabled if query matches the all of the cities from that country, but not the country itself
+test data: "s"
+expected results: "China" is selectable (all the cities ("Shenzen" and "Sozuhou") match the query)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_16
+short description: "Nothing found" is displayed if the query does not match any cities
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_17
+short description: hitting return/enter does not add a location to the filter if there are no results
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_18
+short description: characters typed in the location search bar are not memorized if the user clicks out of the location dropdown menu/search bar
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_19
+short description: new countries/cities are added to the beginning of the filter contents from left to right
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+id: TC_loc_20
+short description: clicking "Clear All" in the Location drop down menu only clears the locations from the filter contents (e.g. activities are not removed)
+
