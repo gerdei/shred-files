@@ -1,0 +1,19 @@
+The homeplanets of the characters in "The Empire Strikes Back" are the following:
+- the homeplanet of Luke Skywalker is Tatooine.
+- the homeplanet of C-3PO is Tatooine.
+- the homeplanet of R2-D2 is Naboo.
+- the homeplanet of Darth Vader is Tatooine.
+- the homeplanet of Leia Organa is Alderaan.
+- the homeplanet of Obi-Wan Kenobi is Stewjon.
+- the homeplanet of Chewbacca is Kashyyyk.
+- the homeplanet of Han Solo is Corellia.
+- the homeplanet of Wedge Antilles is Corellia.
+- the homeplanet of Yoda is unknown.
+- the homeplanet of Palpatine is Naboo.
+- the homeplanet of Boba Fett is Kamino.
+- the homeplanet of IG-88 is unknown.
+- the homeplanet of Bossk is Trandosha.
+- the homeplanet of Lando Calrissian is Socorro.
+- the homeplanet of Lobot is Bespin.
+Did you know? The wookie name of planet "Bespin" is Bwocakahwh.
+[Finished in 50.4s]

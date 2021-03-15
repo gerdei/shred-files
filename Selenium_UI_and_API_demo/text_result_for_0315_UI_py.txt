@@ -1,0 +1,48 @@
+
+The user hovers through the menu items in the top menu.
+Moving mouse over menu/submenu "platform"
+Moving mouse over menu/submenu "pricing"
+Moving mouse over menu/submenu "services"
+Moving mouse over menu/submenu "solutions"
+Moving mouse over menu/submenu "resources"
+Moving mouse over menu/submenu "about us"
+
+The user tries to log in with invalid credentials.
+Clicking on login button in top menu
+Entering "letmein@acme.com" in username field
+Entering "1234" in password field
+Submitting login form with the following credentials: (letmein@acme.com, 1234)
+Warning: account lockout after 2 more unsuccessful login attempts.
+
+The user enters "SPSS" in the search bar.
+Clicking on search button in upper right corner.
+Searching for "SPSS" in upper menu search bar
+
+The user navigates to the "solutions/by data platform/spss" menu item and clicks on it.
+Clicking on element "solutions/by data platform/spss"
+Moving mouse over menu/submenu "solutions"
+Moving mouse over menu/submenu "by data platform"
+Moving mouse over menu/submenu "spss"
+
+The users initiates a sign-up. (without submitting the form)
+Clicking on sign-up button in top menu
+Entering "z.sesum@sfry.yu" in e-mail field
+Selecting "Yugoslavia" in country selector
+
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
+
+Clicking on login button in top menu
+Entering "nosuchuser123" in username field
+Entering "1" in password field
+Submitting login form with the following credentials: (nosuchuser123, 1)
+Warning: account lockout after 1 more unsuccessful login attempt.
+Entering "nosuchuser123" in username field
+Entering "2" in password field
+Submitting login form with the following credentials: (nosuchuser123, 2)
+Maximum number of failed login attempts reached. Please contact customer support.
+Entering "nosuchuser123" in username field
+Entering "3" in password field
+Submitting login form with the following credentials: (nosuchuser123, 3)
+Maximum number of failed login attempts reached. Please contact customer support.
+
+[Finished in 103.2s]
